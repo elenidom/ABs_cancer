@@ -50,17 +50,6 @@ prepare_initial_myPERSON2019 <- function(){
     full_join(., urinary, by="patid2") %>%
     full_join(., uterus, by="patid2")
   
-  # to remove unneeded columns
-  #dput(names(mycancers))
-  
-  temp_drop19 <- c("dtindex.y", "dtindex.x.x", "dtindex.y.y", "dtindex.x.x.x",
-                   "dtindex.y.y.y", "dtindex.x.x.x.x",  
-                   "dtindex.y.y.y.y", "dtindex.x.x.x.x.x", 
-                   "dtindex.y.y.y.y.y", "dtindex.x.x.x.x.x.x", 
-                   "dtindex.y.y.y.y.y.y", "dtindex.x.x.x.x.x.x.x", 
-                   "dtindex.y.y.y.y.y.y.y", "dtindex.x.x.x.x.x.x.x.x", 
-                   "dtindex.y.y.y.y.y.y.y.y")
-  
   # keep your 1st clean dataset as follows:
   myPERSON2019 <- mycancers[, !(names(mycancers) %in% temp_drop19)]
   
@@ -123,24 +112,6 @@ link_AB_with_myPERSON2019 <- function(){
   myPERSON2019$exposure_stage <- ifelse(myPERSON2019$m_exp <= 24 & myPERSON2019$m_exp > 3, 1, myPERSON2019$exposure_stage)
   myPERSON2019$exposure_stage <- ifelse(myPERSON2019$m_exp > 24, 0, myPERSON2019$exposure_stage)
   myPERSON2019$exposure_stage <- as.factor(myPERSON2019$exposure_stage)
-  #summary(myPERSON2019$exposure_stage)
-    
-  # calculate the exposure categories for those who have cancer
-  #table(myPERSON2019$exposure_stage)
-  
-  # define categories according to the above histogram
-  
-  # tp use it during splines
-#   myPERSON$exposure_stage_g <- 0
-#   myPERSON$exposure_stage_g <- ifelse(myPERSON$exposure_stage == 0, 0, myPERSON$exposure_stage_g)
-#   myPERSON$exposure_stage_g <- ifelse(myPERSON$exposure_stage == 1, 1, myPERSON$exposure_stage_g)
-#   myPERSON$exposure_stage_g <- ifelse(myPERSON$countab_yb1 < 2 & myPERSON$exposure_stage==2, 2, 
-#                                       myPERSON$exposure_stage_g)
-#   myPERSON$exposure_stage_g <- ifelse(myPERSON$countab_yb1 >= 2 & myPERSON$countab_yb1 <= 3 
-#                                       & myPERSON$exposure_stage==2, 3, myPERSON$exposure_stage_g)
-#   myPERSON$exposure_stage_g <- ifelse(myPERSON$countab_yb1 > 3  & myPERSON$exposure_stage==2, 4, 
-#                                       myPERSON$exposure_stage_g)
-#   myPERSON$exposure_stage_g <- as.factor(myPERSON$exposure_stage_g)
   
   return(myPERSON2019)
 }
